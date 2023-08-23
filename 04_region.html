@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Region</title>
+
+    <!-- ==============================BOOOTSTRAP 5================================================= -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.2.0/dist/lux/bootstrap.min.css">
+
+    <!-- ==============================FONTAWESOME================================================== -->
+
+    <script src="https://kit.fontawesome.com/8f14f9f0ea.js" crossorigin="anonymous"></script>
+
+    <!-- ================================ CSS BF ===================================================-->
+
+    <style>
+        .etoile {
+            color: darkorange;
+        }
+
+        @media (max-width: 500px) {
+
+            table tr th:nth-child(1),
+            table tr td:nth-child(1),
+            table tr th:nth-child(2),
+            table tr td:nth-child(2) {
+                display: none;
+            }
+
+            table tr th:nth-child(4),
+            table tr td:nth-child(4) {
+                width: 50%;
+            }
+        }
+    </style>
+
+</head>
+
+<body class="bg-black">
+    <!-- ==============================BODY START=================================================== -->
+    <!-- ===============================BARRE DE NAVIGATION========================================= -->
+
+    <div class="container-fluid bg-black">
+        <div class="container">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-black">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="http://www.brunofulia.fr">.{BF}<span class="etoile">*</span> Bruno
+                        Fulia</a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">Tables de reference</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="01_pays.html">Pays</a></li>
+                                    <li><a class="dropdown-item" href="02_cepage.html">Cepage</a></li>
+                                    <li><a class="dropdown-item" href="03_couleur.html">Couleur</a></li>
+                                    <li><a class="dropdown-item" href="04_region.html">Region</a></li>
+                                    <li><a class="dropdown-item" href="06_appel.html">Appellation</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="05_vins.html">Catalogue des
+                                    Vins</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <!-- =================================== HERO IMAGE ============================================ -->
+
+    <div class="bg-dark text-bg-dark px-4 py-5 text-center" style="background-image: url('img/15_hero.jpg'); 
+    height: 40vh;
+    background-size: cover;">
+        <div class="py-5">
+            <h1 class="display-5 fw-bold text-white">Gestion Regions</h1>
+
+            <!-- ==============================DIV POUR RECHERCHE=========================================== -->
+
+            <div id="rechercheId" class="container-fluid mt-3">
+                <input type="text" id="zoneRech" placeholder="case sensitive" /> Recherche
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==============================DIV POUR MODALS============================================== -->
+
+    <div id="modalId" class="bg-black">
+
+        <!-- ----------------------------Modal Ajout------------------------------- -->
+
+        <div class="modal fade" id="frmAjout" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Ajout d'une Item</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="idAjout1">Select Pays</label>
+                                <div id="idAjout1">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="idAjout2">Nom Region:</label>
+                                <input type="text" class="form-control" id="idAjout2" placeholder="Saisir Region"
+                                    value="">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="okAjout" class="btn btn-success" data-bs-dismiss="modal"
+                            data-bs-toggle="modal" data-bs-target="#confirmAjout">Enregistrer</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- -----------Confirm Ajout-------------- -->
+        <div class="modal fade" id="confirmAjout" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Ajout</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Voulez-vous vraiment confirmer ??
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="enregAjout" class="btn btn-success"
+                            data-bs-dismiss="modal">Enregistrer</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ----------------------------Modal Vue--------------------------------- -->
+
+        <div class="modal fade" id="frmVue" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Vue Item</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="idVue1">Code Region:</label>
+                                <input type="text" class="form-control" id="idVue1" placeholder="" value="" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="idVue2">Nom Pays:</label>
+                                <input type="text" class="form-control" id="idVue2" placeholder="" value="" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="idVue3">Nom Region:</label>
+                                <input type="text" class="form-control" id="idVue3" placeholder="" value="" disabled>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ----------------------------Modal Modif------------------------------- -->
+
+        <div class="modal fade" id="frmModif" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modification d'une Item</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="idModif1">Code Region:</label>
+                                <input type="text" class="form-control" id="idModif1" value="" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="idModif2">Nom Pays:</label>
+                                <div id="idModif2"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="idModif3">Nom Region:</label>
+                                <input type="text" class="form-control" id="idModif3" value="">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="okModif" class="btn btn-success" data-bs-dismiss="modal"
+                            data-bs-toggle="modal" data-bs-target="#confirmModif">Enregistrer</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- -----------Confirm Modif-------------- -->
+        <div class="modal fade" id="confirmModif" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Modification</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Voulez-vous vraiment confirmer ??
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="enregModif" class="btn btn-success"
+                            data-bs-dismiss="modal">Enregistrer</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ----------------------------Modal Supr-------------------------------- -->
+
+        <div class="modal fade" id="frmSupr" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Suppression d'une Item</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="idSupr1">Code Region:</label>
+                                <input type="text" class="form-control" id="idSupr1" value="" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="idSupr2">Nom Pays:</label>
+                                <input type="text" class="form-control" id="idSupr2" value="" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="idSupr3">Nom Region:</label>
+                                <input type="text" class="form-control" id="idSupr3" value="" disabled>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="okSupr" class="btn btn-success" data-bs-dismiss="modal"
+                            data-bs-toggle="modal" data-bs-target="#confirmSupr">Supprimer</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- -----------Confirm Supr-------------- -->
+        <div class="modal fade" id="confirmSupr" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Suppression</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Voulez-vous vraiment confirmer ??
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="enregSupr" class="btn btn-success"
+                            data-bs-dismiss="modal">Supprimer</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ==============================DIV POUR TABLE============================================== -->
+
+    <div id="divId" class="container-fluid bg-black mt-3"></div>
+
+    <!-- =================================== FOOTER =============================================== -->
+
+    <footer class="footer mt-0 py-5 bg-black">
+        <div class="container text-center">
+            <span class="text-muted"> **************************************</span>
+            <p>
+                DWWM 20321 - AFPA - FrontEnd ECF 1
+            </p>
+        </div>
+        <div class="container text-center">
+            <a href="#">
+                <img src="img/{BF}2.png" alt="" style="width: 50px" class="rounded" />
+            </a>
+            <h6>Bruno Fulia Aout 2022</h6>
+        </div>
+    </footer>
+
+    <!-- ================================FIN BODY=================================================== -->
+
+    <!-- ==============================BOOTSTRAP JS================================================= -->
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+
+    <!-- ==============================MON JS======================================================= -->
+
+    <script type="module" src="js\04_region.js"></script>
+</body>
+
+</html>
